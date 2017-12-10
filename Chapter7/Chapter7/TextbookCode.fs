@@ -2,6 +2,7 @@
 
 open System.Drawing
 open DataTypes
+open DataTypes.Rect
 
 let rc = {
     Left = 10.0f;
@@ -43,6 +44,20 @@ let elements =
            {Left = 10.0f; Top = 230.0f; Width = 400.0f; Height = 400.0f})
     ]
 
+let drawElements elements (gr:Graphics) =
+    elements
+    |> List.iter (fun p ->
+        match p with
+        | TextElement(text,boundingBox) ->
+            let boxf = DataTypes.Rect.toRectangleF(boundingBox)
+            gr.DrawString(text.Text, text.Font, Brushes.Black, boxf)
+        | ImageElement(imagePath, boundingBox) ->
+            let bmp = new Bitmap(imagePath)
+            let wspace, hspace = 
+                boundingBox.Width / 10.0f, boundingBox.Height / 10.0f
+            let rc = toRectangleF(deflate(boundingBox,wspace,hspace))
+            gr.DrawImage(bmp,rc)
+    )
 
 
 

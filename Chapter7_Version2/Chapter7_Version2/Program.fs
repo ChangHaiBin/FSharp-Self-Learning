@@ -3,6 +3,6 @@
 
 [<EntryPoint>]
 let main argv = 
-    let X = 1
+    
     printfn "%A" argv
     0 // return an integer exit code

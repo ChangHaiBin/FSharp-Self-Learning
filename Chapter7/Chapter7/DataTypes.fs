@@ -2,21 +2,23 @@
 
 open System.Drawing
 
-type Rect =
+
+type rect =
     {
         Left    : float32
         Top     : float32
         Width   : float32
         Height  : float32
     }
+
 type TextContent =
     { Text : string
       Font : Font}
 type ScreenElement =
-    | TextElement of TextContent * Rect
-    | ImageElement of string * Rect     // image filename
-
-
+    | TextElement of TextContent * rect
+    | ImageElement of string * rect    // image filename
+    
+    
 module Rect =
     let deflate (original,wspace,hspace) =
         {
